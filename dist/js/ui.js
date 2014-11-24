@@ -188,7 +188,7 @@
   jQuery(function() {
     var $playground, url;
     $playground = jQuery('.playground');
-    url = 'data/sample1.json';
+    url = 'data/elements.json';
     return new Game($playground).init(url);
   });
 

@@ -62,7 +62,6 @@ class Group
     for element in @elements
       element.render().appendTo $elements
 
-
     @$left_el = $group.clone()
     @$right_el = $group.clone()
 
@@ -159,7 +158,7 @@ class Game
 jQuery ->
   $playground = jQuery('.playground')
 
-  # url = 'data/elements.json'
-  url = 'data/sample1.json'
+  url = 'data/elements.json'
+  # url = 'data/sample1.json'
 
   new Game($playground).init url

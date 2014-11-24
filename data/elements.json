@@ -20,11 +20,32 @@
       ]
     },
     {
+      "name": "数学",
+      "icon": "",
+      "desc": "...",
+      "elements": [
+        {
+          "name": "二进制",
+          "icon": "",
+          "desc": "..."
+        }
+      ]
+    },
+    {
       "name": "逻辑",
       "icon": "",
       "desc": "...",
       "elements": [
-
+        {
+          "name": "True",
+          "icon": "",
+          "desc": "..."
+        },
+        {
+          "name": "False",
+          "icon": "",
+          "desc": "..."
+        }
       ]
     }
   ]
