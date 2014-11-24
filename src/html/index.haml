@@ -1,0 +1,20 @@
+!!!
+%html
+  %head
+    %title Game Map Render
+    %meta{:charset => 'utf-8'}
+    
+    %link{:rel => 'stylesheet', :href => 'dist/css/ui.css'}
+
+  %body
+    .playground
+      .area.left{:data => {:side => :left}}
+        .groups
+
+      .area.right{:data => {:side => :right}}
+        .groups
+
+    %script{:type => 'text/javascript', :src => 'lib/jquery-2.1.1.min.js'}
+    %script{:type => 'text/javascript', :src => 'lib/state-machine.min.js'}
+
+    %script{:type => 'text/javascript', :src => 'dist/js/ui.js'}

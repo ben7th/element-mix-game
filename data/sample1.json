@@ -1,0 +1,70 @@
+{
+  "groups": [
+    {
+      "name": "数字",
+      "elements": [
+        {
+          "name": "0",
+          "done": true
+        },
+        {
+          "name": "1",
+          "done": true
+        },
+        {
+          "name": "2",
+          "done": true
+        },
+        {
+          "name": "3",
+          "done": true
+        },
+        {
+          "name": "4",
+          "done": true
+        },
+        {
+          "name": "5",
+          "done": true
+        },
+        {
+          "name": "6",
+          "done": true
+        },
+        {
+          "name": "7",
+          "done": true
+        },
+        {
+          "name": "8",
+          "done": true
+        },
+        {
+          "name": "9",
+          "done": true
+        }
+      ]
+    },
+    {
+      "name": "逻辑",
+      "elements": [
+        {
+          "name": "True",
+          "done": true
+        },
+        {
+          "name": "False",
+          "done": true
+        },
+        {
+          "name": "and",
+          "done": true
+        },
+        {
+          "name": "or",
+          "done": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "groups": [
+    {
+      "name": "数字",
+      "icon": "",
+      "desc": "...",
+      "elements": [
+        {
+          "name": "1",
+          "icon": "",
+          "desc": "...",
+          "done": true
+        },
+        {
+          "name": "0",
+          "icon": "",
+          "desc": "...",
+          "done": true
+        }
+      ]
+    },
+    {
+      "name": "逻辑",
+      "icon": "",
+      "desc": "...",
+      "elements": [
+
+      ]
+    }
+  ]
+}
