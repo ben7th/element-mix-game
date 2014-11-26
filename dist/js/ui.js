@@ -138,20 +138,52 @@
 
     Element.prototype.render = function() {
       var $element;
-      $element = jQuery('<div>').addClass('element').html(this.name).attr('data-name', this.name).attr('data-group-name', this.group.name);
+      $element = jQuery('<div>').addClass('element').attr('data-name', this.name).attr('data-group-name', this.group.name);
+      if ((this.icon != null) && this.icon.length > 0) {
+        $element.css('background-image', "url(data/icons/elements/" + this.icon + ")");
+      } else {
+        $element.addClass('blank');
+        $element.html(this.name);
+      }
       return $element;
     };
 
     Element.prototype.toggle = function(side) {
-      var $area, $element;
+      var $area, $element, game;
       $area = this.group.game.$playground.find(".area." + side);
       $element = $area.find(".element[data-name='" + this.name + "']");
+      game = this.group.game;
       if (!$element.hasClass('active')) {
-        $area.find('.element').removeClass('active');
-        return $element.addClass('active');
+        if (game.$active_elm != null) {
+          return this.mix(game.$active_elm, $element);
+        } else {
+          game.$active_elm = $element;
+          $area.find('.element').removeClass('active');
+          return $element.addClass('active');
+        }
       } else {
+        game.$active_elm = null;
         return $element.removeClass('active');
       }
+    };
+
+    Element.prototype.mix = function($el0, $el1) {
+      var name0, name1;
+      name0 = $el0.data('name');
+      name1 = $el1.data('name');
+      console.log(name0, 'mix with', name1);
+      return this.mix_failed($el0, $el1);
+    };
+
+    Element.prototype.mix_failed = function($el0, $el1) {
+      console.log('mix failed');
+      this.group.game.$active_elm = null;
+      $el0.removeClass('active').addClass('shake');
+      $el1.removeClass('active').addClass('shake');
+      return setTimeout(function() {
+        $el0.removeClass('shake');
+        return $el1.removeClass('shake');
+      }, 300);
     };
 
     return Element;
@@ -256,6 +288,7 @@
       this.$right_area_groups = this.$playground.find('.area.right .groups');
       this.groups = [];
       this.bind_events();
+      this.$active_elm = null;
     }
 
     Game.prototype.init = function(json_url) {

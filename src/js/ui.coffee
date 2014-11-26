@@ -105,9 +105,14 @@ class Element
   render: ->
     $element = jQuery '<div>'
       .addClass 'element'
-      .html @name
       .attr 'data-name', @name
       .attr 'data-group-name', @group.name
+
+    if @icon? and @icon.length > 0
+      $element.css 'background-image', "url(data/icons/elements/#{@icon})"
+    else
+      $element.addClass 'blank'
+      $element.html @name
 
     return $element
 
@@ -115,11 +120,43 @@ class Element
     $area = @group.game.$playground.find(".area.#{side}")
     $element = $area.find(".element[data-name='#{@name}']")
 
+    game = @group.game
+
     if not $element.hasClass 'active'
-      $area.find('.element').removeClass 'active'
-      $element.addClass 'active'
+      # 如果已经有选中元素，合成
+      if game.$active_elm?
+        @mix game.$active_elm, $element
+
+      # 如果没有选中元素，选中当前元素
+      else
+        game.$active_elm = $element
+        $area.find('.element').removeClass 'active'
+        $element.addClass 'active'
     else
+      game.$active_elm = null
       $element.removeClass 'active'
+
+  # 尝试和指定的元素进行合成
+  mix: ($el0, $el1)->
+    name0 = $el0.data('name')
+    name1 = $el1.data('name')
+    console.log name0, 'mix with', name1
+
+    # 查找合成公式，判定是否合成成功
+    @mix_failed($el0, $el1)
+
+  mix_failed: ($el0, $el1)->
+    console.log 'mix failed'
+
+    @group.game.$active_elm = null
+
+    $el0.removeClass('active').addClass('shake')
+    $el1.removeClass('active').addClass('shake')
+
+    setTimeout ->
+      $el0.removeClass('shake')
+      $el1.removeClass('shake')
+    , 300
 
 
 # 元素分组
@@ -219,6 +256,8 @@ class Game
     @groups = []
     @bind_events()
     # @create_fsm()
+
+    @$active_elm = null
 
   init: (json_url)->
     # 载入分组数据

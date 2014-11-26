@@ -5,11 +5,13 @@
       "icon": "number.png",
       "elements": [
         {
-          "name": "0",
+          "name": "cpu",
+          "icon": "cpu.png",
           "done": true
         },
         {
-          "name": "1",
+          "name": "android",
+          "icon": "android.png",
           "done": true
         },
         {

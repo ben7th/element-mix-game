@@ -1,4 +1,164 @@
 @charset "UTF-8";
+@-webkit-keyframes shake {
+  0% {
+    top: -5px;
+    left: 0; }
+
+  25% {
+    top: 0;
+    left: 5px; }
+
+  50% {
+    top: 5px;
+    left: 0; }
+
+  75% {
+    top: 0;
+    left: -5px; }
+
+  100% {
+    top: -5px;
+    left: 0; } }
+
+@-moz-keyframes shake {
+  0% {
+    top: -5px;
+    left: 0; }
+
+  25% {
+    top: 0;
+    left: 5px; }
+
+  50% {
+    top: 5px;
+    left: 0; }
+
+  75% {
+    top: 0;
+    left: -5px; }
+
+  100% {
+    top: -5px;
+    left: 0; } }
+
+@-ms-keyframes shake {
+  0% {
+    top: -5px;
+    left: 0; }
+
+  25% {
+    top: 0;
+    left: 5px; }
+
+  50% {
+    top: 5px;
+    left: 0; }
+
+  75% {
+    top: 0;
+    left: -5px; }
+
+  100% {
+    top: -5px;
+    left: 0; } }
+
+@keyframes shake {
+  0% {
+    top: -5px;
+    left: 0; }
+
+  25% {
+    top: 0;
+    left: 5px; }
+
+  50% {
+    top: 5px;
+    left: 0; }
+
+  75% {
+    top: 0;
+    left: -5px; }
+
+  100% {
+    top: -5px;
+    left: 0; } }
+
+@-webkit-keyframes active {
+  0% {
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg); }
+
+  50% {
+    -webkit-transform: rotate(5deg);
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -o-transform: rotate(5deg); }
+
+  100% {
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg); } }
+
+@-moz-keyframes active {
+  0% {
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg); }
+
+  50% {
+    -webkit-transform: rotate(5deg);
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -o-transform: rotate(5deg); }
+
+  100% {
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg); } }
+
+@-ms-keyframes active {
+  0% {
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg); }
+
+  50% {
+    -webkit-transform: rotate(5deg);
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -o-transform: rotate(5deg); }
+
+  100% {
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg); } }
+
+@keyframes active {
+  0% {
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg); }
+
+  50% {
+    -webkit-transform: rotate(5deg);
+    -moz-transform: rotate(5deg);
+    -ms-transform: rotate(5deg);
+    -o-transform: rotate(5deg); }
+
+  100% {
+    -webkit-transform: rotate(-5deg);
+    -moz-transform: rotate(-5deg);
+    -ms-transform: rotate(-5deg);
+    -o-transform: rotate(-5deg); } }
+
 body {
   background-color: #333;
   font-family: "Helvetica Neue","Helvetica","Arial","sans-serif","微软雅黑";
@@ -75,7 +235,8 @@ body {
           text-align: center;
           border-radius: 1000px;
           cursor: pointer;
-          background-size: cover; }
+          background-size: cover;
+          background-repeat: no-repeat; }
           .playground .area .groups .group .icon.blank {
             background-color: #44b2f5;
             color: white; }
@@ -92,7 +253,6 @@ body {
             margin-top: 20px;
             margin-left: 20px;
             float: left;
-            background-color: #ffcc3f;
             color: #444;
             font-weight: bold;
             text-align: center;
@@ -100,6 +260,20 @@ body {
             cursor: pointer;
             box-sizing: border-box;
             border: solid 5px transparent;
-            transition: all .3s ease; }
+            transition: all .3s ease;
+            position: relative;
+            background-size: cover;
+            background-repeat: no-repeat; }
             .playground .area .groups .group .elements .element.active {
-              border-color: rgba(0, 0, 0, 0.5); }
+              border-color: rgba(0, 0, 0, 0.5);
+              -webkit-animation: active 0.4s infinite;
+              -moz-animation: active 0.4s infinite;
+              -o-animation: active 0.4s infinite;
+              animation: active 0.4s infinite; }
+            .playground .area .groups .group .elements .element.blank {
+              background-color: #ffcc3f; }
+            .playground .area .groups .group .elements .element.shake {
+              -webkit-animation: shake 0.1s infinite;
+              -moz-animation: shake 0.1s infinite;
+              -o-animation: shake 0.1s infinite;
+              animation: shake 0.1s infinite; }
