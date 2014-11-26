@@ -1,0 +1,44 @@
+{
+  "groups": [
+    {
+      "name": "数字",
+      "icon": "number.png?0",
+      "elements": [
+        {
+          "name": "0",
+          "done": true
+        }
+      ]
+    },
+    {
+      "name": "逻辑",
+      "icon": "logic.png?0",
+      "elements": [
+        {
+          "name": "1",
+          "done": true
+        }
+      ]
+    },
+    {
+      "name": "芯片",
+      "icon": "chip.png?0",
+      "elements": [
+        {
+          "name": "2",
+          "done": true
+        }
+      ]
+    },
+    {
+      "name": "逻辑-2",
+      "icon": "logic1.png?0",
+      "elements": [
+        {
+          "name": "3",
+          "done": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "数字",
+      "icon": "number.png?0",
+      "elements": [
+        {
+          "name": "0",
+          "done": true
+        }
+      ]
+    },
+    {
+      "name": "逻辑",
+      "icon": "logic.png?0",
+      "elements": [
+        {
+          "name": "1",
+          "done": true
+        }
+      ]
+    }
+  ]
+}

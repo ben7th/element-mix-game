@@ -14,77 +14,92 @@ body {
 
 .playground {
   background: white;
-  width: 1180px;
+  width: 1210px;
   height: 600px;
   margin: 100px auto;
-  border-radius: 3px; }
+  border-radius: 3px;
+  overflow: hidden; }
   .playground .area {
     border-radius: 3px;
-    width: 50%;
-    height: 100%;
-    float: left;
+    width: 600px;
+    height: 600px;
     position: relative; }
+    .playground .area.left {
+      float: left; }
+    .playground .area.right {
+      float: right; }
+    .playground .area.left .groups .group.open {
+      top: 0 !important;
+      left: 0 !important;
+      width: 50% !important;
+      height: 50% !important; }
+    .playground .area.right .groups .group.open {
+      top: 0 !important;
+      left: 50% !important;
+      width: 50% !important;
+      height: 50% !important; }
+    .playground .area.left .elements {
+      top: 0;
+      width: 100%;
+      left: 100%;
+      height: 200%;
+      box-sizing: border-box;
+      margin-top: 15px;
+      margin-left: 30px; }
+    .playground .area.right .elements {
+      top: 0;
+      width: 100%;
+      left: -100%;
+      height: 200%;
+      box-sizing: border-box;
+      margin-top: 15px;
+      margin-left: 30px; }
     .playground .area .groups {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      bottom: 10px;
-      right: 10px;
-      background-color: #eee; }
-    .playground .area.left .groups {
-      right: 5px; }
-    .playground .area.right .groups {
-      left: 5px; }
-    .playground .area .groups .group.hide {
-      display: none; }
-    .playground .area .groups .group .icon {
-      font-size: 20px;
-      color: #fff;
-      font-weight: bold;
-      text-align: center;
-      height: 165px;
-      line-height: 165px;
-      width: 165px;
-      background-color: #44b2f5;
-      border-radius: 165px;
-      float: left;
-      margin-top: 20px;
-      margin-left: 20px;
-      cursor: pointer;
-      transition: all .3s ease; }
-    .playground .area .groups .group.open .icon {
-      background-color: #4CC85E;
-      width: 240px;
-      height: 240px;
-      line-height: 240px; }
-    .playground .area .groups .group .elements {
-      position: absolute;
       top: 0;
+      left: 0;
       right: 0;
       bottom: 0;
-      width: 50%;
-      opacity: 0;
-      pointer-events: none;
-      transition: all .3s ease; }
-      .playground .area .groups .group .elements .element {
-        width: 90px;
-        height: 90px;
-        line-height: 80px;
-        border-radius: 3px;
-        margin-top: 20px;
-        margin-left: 20px;
-        float: left;
-        background-color: #ffcc3f;
-        color: #444;
-        font-weight: bold;
-        text-align: center;
-        font-size: 20px;
-        cursor: pointer;
-        box-sizing: border-box;
-        border: solid 5px transparent;
+      background-color: #f7f7f7; }
+      .playground .area .groups .group {
+        position: absolute;
         transition: all .3s ease; }
-        .playground .area .groups .group .elements .element.active {
-          border-color: rgba(0, 0, 0, 0.5); }
-    .playground .area .groups .group.open .elements {
-      opacity: 1;
-      pointer-events: auto; }
+        .playground .area .groups .group.hide {
+          opacity: 0;
+          pointer-events: none; }
+        .playground .area .groups .group .icon {
+          position: absolute;
+          font-size: 20px;
+          color: #333;
+          font-weight: bold;
+          text-align: center;
+          border-radius: 1000px;
+          cursor: pointer;
+          background-size: cover; }
+          .playground .area .groups .group .icon.blank {
+            background-color: #44b2f5;
+            color: white; }
+        .playground .area .groups .group.open .icon.blank {
+          background-color: #4CC85E; }
+        .playground .area .groups .group .elements {
+          position: absolute;
+          display: none; }
+          .playground .area .groups .group .elements .element {
+            width: 90px;
+            height: 90px;
+            line-height: 80px;
+            border-radius: 3px;
+            margin-top: 20px;
+            margin-left: 20px;
+            float: left;
+            background-color: #ffcc3f;
+            color: #444;
+            font-weight: bold;
+            text-align: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-sizing: border-box;
+            border: solid 5px transparent;
+            transition: all .3s ease; }
+            .playground .area .groups .group .elements .element.active {
+              border-color: rgba(0, 0, 0, 0.5); }

@@ -2,6 +2,7 @@
   "groups": [
     {
       "name": "数字",
+      "icon": "number.png",
       "elements": [
         {
           "name": "0",
@@ -47,6 +48,7 @@
     },
     {
       "name": "逻辑",
+      "icon": "logic1.png",
       "elements": [
         {
           "name": "True",
@@ -62,6 +64,16 @@
         },
         {
           "name": "or",
+          "done": true
+        }
+      ]
+    },
+    {
+      "name": "芯片",
+      "icon": "chip.png",
+      "elements": [
+        {
+          "name": "cpu",
           "done": true
         }
       ]

@@ -1,0 +1,14 @@
+{
+  "groups": [
+    {
+      "name": "数字",
+      "icon": "number.png?0",
+      "elements": [
+        {
+          "name": "0",
+          "done": true
+        }
+      ]
+    }
+  ]
+}
