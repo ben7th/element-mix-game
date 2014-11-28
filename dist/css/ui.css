@@ -177,13 +177,87 @@ body {
   width: 1210px;
   height: 600px;
   margin: 100px auto;
-  border-radius: 3px;
-  overflow: hidden; }
+  position: relative; }
+  .playground .merge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0; }
+    .playground .merge .board {
+      width: 640px;
+      height: 640px;
+      background-color: #fff;
+      position: absolute;
+      top: -20px;
+      left: 285px;
+      box-sizing: border-box;
+      pointer-events: none;
+      box-shadow: 0 0 5px black;
+      opacity: 0;
+      transition: all .2s ease; }
+    .playground .merge .element {
+      width: 90px;
+      height: 90px;
+      line-height: 80px;
+      border-radius: 3px;
+      margin-top: 20px;
+      margin-left: 20px;
+      float: left;
+      color: #444;
+      font-weight: bold;
+      text-align: center;
+      font-size: 20px;
+      cursor: pointer;
+      box-sizing: border-box;
+      border: solid 5px transparent;
+      transition: all .3s ease;
+      position: relative;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 0;
+      position: absolute;
+      pointer-events: none;
+      transition: left .5s ease-in, top .5s ease-out; }
+      .playground .merge .element.active {
+        border-color: rgba(0, 0, 0, 0.5);
+        -webkit-animation: active 0.4s infinite;
+        -moz-animation: active 0.4s infinite;
+        -o-animation: active 0.4s infinite;
+        animation: active 0.4s infinite; }
+      .playground .merge .element.blank {
+        background-color: #ffcc3f; }
+      .playground .merge .element.shake {
+        -webkit-animation: shake 0.1s infinite;
+        -moz-animation: shake 0.1s infinite;
+        -o-animation: shake 0.1s infinite;
+        animation: shake 0.1s infinite; }
+      .playground .merge .element .ic {
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 60px;
+        width: 60px;
+        position: absolute;
+        top: 0;
+        left: 10px; }
+      .playground .merge .element .name {
+        font-size: 16px;
+        pointer-events: none;
+        position: relative;
+        top: 30px; }
+      .playground .merge .element.merged {
+        left: 560px !important;
+        top: 255px !important; }
+    .playground .merge.show .board {
+      opacity: 1; }
   .playground .area {
-    border-radius: 3px;
     width: 600px;
     height: 600px;
-    position: relative; }
+    position: relative;
+    transition: all .3s ease; }
+    .playground .area.hide {
+      opacity: 0;
+      pointer-events: none; }
     .playground .area.left {
       float: left; }
     .playground .area.right {
@@ -277,3 +351,16 @@ body {
               -moz-animation: shake 0.1s infinite;
               -o-animation: shake 0.1s infinite;
               animation: shake 0.1s infinite; }
+            .playground .area .groups .group .elements .element .ic {
+              background-size: cover;
+              background-repeat: no-repeat;
+              height: 60px;
+              width: 60px;
+              position: absolute;
+              top: 0;
+              left: 10px; }
+            .playground .area .groups .group .elements .element .name {
+              font-size: 16px;
+              pointer-events: none;
+              position: relative;
+              top: 30px; }

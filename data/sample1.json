@@ -15,7 +15,8 @@
           "done": true
         },
         {
-          "name": "2",
+          "name": "软盘",
+          "icon": "floppy-disk.png",
           "done": true
         },
         {
@@ -75,7 +76,7 @@
       "icon": "chip.png",
       "elements": [
         {
-          "name": "cpu",
+          "name": "chip",
           "done": true
         }
       ]

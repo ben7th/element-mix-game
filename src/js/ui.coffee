@@ -109,10 +109,18 @@ class Element
       .attr 'data-group-name', @group.name
 
     if @icon? and @icon.length > 0
-      $element.css 'background-image', "url(data/icons/elements/#{@icon})"
+      jQuery '<div>'
+        .addClass 'ic'
+        .css 'background-image', "url(data/icons/elements/#{@icon})"
+        .appendTo $element
+      jQuery '<div>'
+        .addClass 'name'
+        .html @name
+        .appendTo $element
     else
       $element.addClass 'blank'
       $element.html @name
+
 
     return $element
 
@@ -143,7 +151,60 @@ class Element
     console.log name0, 'mix with', name1
 
     # 查找合成公式，判定是否合成成功
-    @mix_failed($el0, $el1)
+    name = @try_mix(name0, name1)
+    if name?
+      @mix_success($el0, $el1, name)
+    else
+      @mix_failed($el0, $el1)
+
+  mix_success: ($el0, $el1, name)->
+    console.log 'mix success', name
+
+    # 隐藏左右两个元素区域
+    $el0.closest('.area').addClass 'hide'
+    $el1.closest('.area').addClass 'hide'
+
+    # 在相同的位置复制两个元素
+    $_el0 = @dup_position $el0
+    $_el1 = @dup_position $el1
+
+    @group.game.$merge.addClass 'show'
+    setTimeout =>
+      $_el0.addClass 'merged'
+      $_el1.addClass 'merged'
+      setTimeout =>
+        $_el0.fadeOut 100
+        $_el1.fadeOut 100, =>
+          $_el0.remove()
+          $_el1.remove()
+          # 显示合成出的新元素
+          # 合成出的新元素可能会有多个
+          element = @group.game.get_element name
+          $element = element.render()
+          $element
+            .addClass 'merged'
+            .appendTo @group.game.$merge
+
+          # 显示合成出的新元素所在的分组
+          # group = element.group
+
+          @group.game.$merge.addClass 'done'
+      , 500
+    , 200
+
+
+  dup_position: ($el)->
+    $mg = $el.closest('.playground').find('.merge')
+    mg_offset = $mg.offset()
+    el_offset = $el.offset()
+
+    $_el = $el.clone().removeClass('active')
+      .css
+        'left': el_offset.left - mg_offset.left
+        'top': el_offset.top - mg_offset.top
+
+    return $_el.appendTo $mg
+
 
   mix_failed: ($el0, $el1)->
     console.log 'mix failed'
@@ -157,6 +218,9 @@ class Element
       $el0.removeClass('shake')
       $el1.removeClass('shake')
     , 300
+
+  try_mix: (name0, name1)->
+    return '软盘'
 
 
 # 元素分组
@@ -237,6 +301,8 @@ class Group
       $el.find('.elements').hide()
       $el.find('.element').removeClass 'active'
 
+      @game.$active_elm = null if @game.$active_elm.data('name') == $el.find('.element').data('name')
+
       $el.removeClass 'open'
       setTimeout ->
         $el.closest('.area').find('.groups .group').removeClass 'hide'
@@ -250,6 +316,8 @@ class Group
 
 class Game
   constructor: (@$playground)->
+    @$merge = @$playground.find('.merge')
+
     @$left_area_groups = @$playground.find('.area.left .groups')
     @$right_area_groups = @$playground.find('.area.right .groups')
 
@@ -273,6 +341,14 @@ class Game
     for group in @groups
       return group if group.name is name
     return null
+
+  # 根据元素名获取元素
+  get_element: (name)->
+    for group in @groups
+      element = group.get_element name
+      return element if element?
+    return null
+
 
   # 显示分组
   render_groups: ->
@@ -311,6 +387,16 @@ class Game
       # 选中/取消选中点击的元素
       element.toggle(side) if element?
 
+    # 当合成结束时，点击页面，返回最初状态
+    jQuery(document.body).on 'click', =>
+      if @$merge.hasClass 'done'
+        @$merge.removeClass('show').removeClass('done')
+        @$merge.find('.element').remove()
+        @$playground.find('.area').removeClass 'hide'
+
+        @$active_elm.removeClass('active')
+        @$playground.find('.groups .group').removeClass('hide').removeClass('open')
+        @$playground.find('.elements').hide()
 
 jQuery ->
   $playground = jQuery('.playground')
@@ -323,5 +409,7 @@ jQuery ->
   # url = 'data/groups-fixture/9-groups.json'
   # url = 'data/groups-fixture/16-groups.json'
   # url = 'data/groups-fixture/25-groups.json'
+
+  # TODO 加入重名检测
 
   new Game($playground).init url

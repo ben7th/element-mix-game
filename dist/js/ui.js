@@ -140,7 +140,8 @@
       var $element;
       $element = jQuery('<div>').addClass('element').attr('data-name', this.name).attr('data-group-name', this.group.name);
       if ((this.icon != null) && this.icon.length > 0) {
-        $element.css('background-image', "url(data/icons/elements/" + this.icon + ")");
+        jQuery('<div>').addClass('ic').css('background-image', "url(data/icons/elements/" + this.icon + ")").appendTo($element);
+        jQuery('<div>').addClass('name').html(this.name).appendTo($element);
       } else {
         $element.addClass('blank');
         $element.html(this.name);
@@ -168,11 +169,56 @@
     };
 
     Element.prototype.mix = function($el0, $el1) {
-      var name0, name1;
+      var name, name0, name1;
       name0 = $el0.data('name');
       name1 = $el1.data('name');
       console.log(name0, 'mix with', name1);
-      return this.mix_failed($el0, $el1);
+      name = this.try_mix(name0, name1);
+      if (name != null) {
+        return this.mix_success($el0, $el1, name);
+      } else {
+        return this.mix_failed($el0, $el1);
+      }
+    };
+
+    Element.prototype.mix_success = function($el0, $el1, name) {
+      var $_el0, $_el1;
+      console.log('mix success', name);
+      $el0.closest('.area').addClass('hide');
+      $el1.closest('.area').addClass('hide');
+      $_el0 = this.dup_position($el0);
+      $_el1 = this.dup_position($el1);
+      this.group.game.$merge.addClass('show');
+      return setTimeout((function(_this) {
+        return function() {
+          $_el0.addClass('merged');
+          $_el1.addClass('merged');
+          return setTimeout(function() {
+            $_el0.fadeOut(100);
+            return $_el1.fadeOut(100, function() {
+              var $element, element;
+              $_el0.remove();
+              $_el1.remove();
+              element = _this.group.game.get_element(name);
+              $element = element.render();
+              $element.addClass('merged').appendTo(_this.group.game.$merge);
+              return _this.group.game.$merge.addClass('done');
+            });
+          }, 500);
+        };
+      })(this), 200);
+    };
+
+    Element.prototype.dup_position = function($el) {
+      var $_el, $mg, el_offset, mg_offset;
+      $mg = $el.closest('.playground').find('.merge');
+      mg_offset = $mg.offset();
+      el_offset = $el.offset();
+      $_el = $el.clone().removeClass('active').css({
+        'left': el_offset.left - mg_offset.left,
+        'top': el_offset.top - mg_offset.top
+      });
+      return $_el.appendTo($mg);
     };
 
     Element.prototype.mix_failed = function($el0, $el1) {
@@ -184,6 +230,10 @@
         $el0.removeClass('shake');
         return $el1.removeClass('shake');
       }, 300);
+    };
+
+    Element.prototype.try_mix = function(name0, name1) {
+      return '软盘';
     };
 
     return Element;
@@ -258,6 +308,9 @@
       } else {
         $el.find('.elements').hide();
         $el.find('.element').removeClass('active');
+        if (this.game.$active_elm.data('name') === $el.find('.element').data('name')) {
+          this.game.$active_elm = null;
+        }
         $el.removeClass('open');
         return setTimeout(function() {
           return $el.closest('.area').find('.groups .group').removeClass('hide');
@@ -284,6 +337,7 @@
   Game = (function() {
     function Game($playground) {
       this.$playground = $playground;
+      this.$merge = this.$playground.find('.merge');
       this.$left_area_groups = this.$playground.find('.area.left .groups');
       this.$right_area_groups = this.$playground.find('.area.right .groups');
       this.groups = [];
@@ -318,6 +372,19 @@
       return null;
     };
 
+    Game.prototype.get_element = function(name) {
+      var element, group, _i, _len, _ref;
+      _ref = this.groups;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        group = _ref[_i];
+        element = group.get_element(name);
+        if (element != null) {
+          return element;
+        }
+      }
+      return null;
+    };
+
     Game.prototype.render_groups = function() {
       var group, layout, _i, _len, _ref, _results;
       layout = new Layout(this.groups);
@@ -347,7 +414,7 @@
           return group.toggle(side);
         }
       });
-      return this.$playground.delegate('.area .groups .group .element', 'click', function() {
+      this.$playground.delegate('.area .groups .group .element', 'click', function() {
         var $element, element, group, group_name, name, side;
         $element = jQuery(this);
         name = $element.data('name');
@@ -359,6 +426,18 @@
           return element.toggle(side);
         }
       });
+      return jQuery(document.body).on('click', (function(_this) {
+        return function() {
+          if (_this.$merge.hasClass('done')) {
+            _this.$merge.removeClass('show').removeClass('done');
+            _this.$merge.find('.element').remove();
+            _this.$playground.find('.area').removeClass('hide');
+            _this.$active_elm.removeClass('active');
+            _this.$playground.find('.groups .group').removeClass('hide').removeClass('open');
+            return _this.$playground.find('.elements').hide();
+          }
+        };
+      })(this));
     };
 
     return Game;

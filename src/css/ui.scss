@@ -37,6 +37,56 @@
   100% { @include transform(rotate(-5deg)); }
 }
 
+@mixin element {
+  $w: 90px;
+  width:$w;height:$w;line-height:$w - 10px;
+  border-radius:3px;
+  margin-top:20px;margin-left:20px;
+  float:left;
+  
+  color:#444;
+  font-weight:bold;
+  text-align:center;
+  font-size:20px;
+  cursor: pointer;
+  box-sizing:border-box;
+  border:solid 5px transparent;
+
+  transition: all .3s ease;
+  position:relative;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &.active {
+    border-color:rgba(black, 0.5); 
+    @include animation(active .4s infinite);
+  }
+
+  &.blank {
+    background-color:#ffcc3f;
+  }
+
+  &.shake {
+    @include animation(shake .1s infinite);
+  }
+
+  .ic {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height:60px;width:60px;
+    position:absolute;
+    top:0;left:10px;
+  }
+
+  .name {
+    font-size:16px;
+    pointer-events:none;
+    position:relative;
+    top:30px;
+  }
+}
+
 
 body {
   background-color: #333;
@@ -56,14 +106,56 @@ $area-width:600px; // 左右显示区域的宽度，低分辨率显示器的兼�
   width: $area-width * 2 + 10px;
   height: $area-width;
   margin:100px auto;
-  border-radius:3px;
-  overflow:hidden;
+  position: relative;
+
+  .merge {
+    position:absolute;
+    top:0;left:0;
+    width:0;height:0;
+    .board {
+      width: $area-width + 40px;
+      height: $area-width + 40px;
+      background-color: #fff;
+      position:absolute;
+      top:0 - 20px;left:305px - 20px;
+      box-sizing:border-box;
+      pointer-events:none;
+      box-shadow:0 0 5px black;
+      opacity:0;
+      transition:all .2s ease;
+    }
+    .element {
+      @include element;
+      margin:0;
+      position:absolute;
+      pointer-events:none;
+
+      transition: left .5s ease-in, top .5s ease-out;
+
+      &.merged {
+        left:560px !important;
+        top:255px !important;
+      }
+    }
+
+    &.show {
+      .board {
+        opacity: 1;
+      }
+    }
+  }
 
   .area {
-    border-radius:3px;
     width: $area-width;
     height: $area-width;
     position: relative;
+    
+    transition: all .3s ease;
+    &.hide {
+      opacity:0;
+      pointer-events:none;
+    }
+
 
     &.left {float:left;}
     &.right {float:right;}
@@ -141,38 +233,7 @@ $area-width:600px; // 左右显示区域的宽度，低分辨率显示器的兼�
           display:none;
 
           .element {
-            $w: 90px;
-            width:$w;height:$w;line-height:$w - 10px;
-            border-radius:3px;
-            margin-top:20px;margin-left:20px;
-            float:left;
-            
-            color:#444;
-            font-weight:bold;
-            text-align:center;
-            font-size:20px;
-            cursor: pointer;
-            box-sizing:border-box;
-            border:solid 5px transparent;
-
-            transition: all .3s ease;
-            position:relative;
-
-            background-size: cover;
-            background-repeat: no-repeat;
-
-            &.active {
-              border-color:rgba(black, 0.5); 
-              @include animation(active .4s infinite);
-            }
-
-            &.blank {
-              background-color:#ffcc3f;
-            }
-
-            &.shake {
-              @include animation(shake .1s infinite);
-            }
+            @include element;
           }
         }
       }

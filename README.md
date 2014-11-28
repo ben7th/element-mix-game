@@ -6,3 +6,7 @@ element-mix-game
 
 ### run
 ruby -run -e httpd . -p 4000
+
+
+### TODO
+- 修改为使用状态机实现逻辑。否则很难写。
